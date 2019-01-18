@@ -1,71 +1,96 @@
 package py.edu.uca.lp3.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Charla {
-	private String nombre;
-	private ArrayList<Pregunta> listaPreguntas = new ArrayList<Pregunta>();
-	private ArrayList<Persona> listaInscriptos = new ArrayList<Persona>();
-	
-	
-	public ArrayList<Persona> getListaInscriptos() {
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+@Entity
+public class Charla implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -160197677534197710L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+
+	private String nombreCharla;
+
+	@ElementCollection
+	private List<Pregunta> listaPreguntas = new ArrayList<Pregunta>();
+
+	@ElementCollection
+	private List<Persona> listaInscriptos = new ArrayList<Persona>();
+
+	@ElementCollection
+	private List<Persona> expositor = new ArrayList<Persona>();
+
+	private String hora;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getNombreCharla() {
+		return nombreCharla;
+	}
+
+	public void setNombreCharla(String nombreCharla) {
+		this.nombreCharla = nombreCharla;
+	}
+
+	public List<Persona> getListaInscriptos() {
 		return listaInscriptos;
 	}
 
-	public void setListaInscriptos(ArrayList<Persona> listaInscriptos) {
+	public void setListaInscriptos(List<Persona> listaInscriptos) {
 		this.listaInscriptos = listaInscriptos;
 	}
 
-
-	private String expositor;
-	private String hora;
-	
-	public String getNombre() {
-		return nombre;
-	}
-	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	public ArrayList<Pregunta> getListaPreguntas() {
+	public List<Pregunta> getListaPreguntas() {
 		return listaPreguntas;
 	}
-	
-	
-	
-	
-	public void setListaPreguntas(ArrayList<Pregunta> listaPreguntas) {
+
+	public void setListaPreguntas(List<Pregunta> listaPreguntas) {
 		this.listaPreguntas = listaPreguntas;
 	}
-	
-	public String getExpositor() {
+
+	public List<Persona> getExpositor() {
 		return expositor;
 	}
-	
-	public void setExpositor(String expositor) {
+
+	public void setExpositor(List<Persona> expositor) {
 		this.expositor = expositor;
 	}
-	
+
 	public String getHora() {
 		return hora;
 	}
-	
-	
+
 	public void setHora(String hora) {
 		this.hora = hora;
 	}
 
-	public Charla(String nombre, ArrayList<Pregunta> listaPreguntas, ArrayList<Persona> listaInscriptos,
-			String expositor, String hora) {
+	public Charla() {
 		super();
-		this.nombre = nombre;
-		this.listaPreguntas = listaPreguntas;
-		this.listaInscriptos = listaInscriptos;
-		this.expositor = expositor;
+	}
+
+	public Charla(String nombre, String hora) {
+		super();
+		this.nombreCharla = nombre;
 		this.hora = hora;
 	}
-	
-	
-	
+
 }
